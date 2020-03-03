@@ -9,5 +9,5 @@ const {routeController, migrateRoute} = require('../controllers/controller');
 // });
 router.get('/', routeController);
 
-router.get('/route', migrateRoute);
+router.get('/login', migrateRoute);
 module.exports = router;

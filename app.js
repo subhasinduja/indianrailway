@@ -12,8 +12,8 @@ const indexRoutes = require('./routes/index');
 var app = express();
 
 // view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'html');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,7 +22,20 @@ app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
  app.use('/', indexRoutes);
- app.use('/route', indexRoutes);
+ app.use('/login', indexRoutes);
+
+ app.post('/signup', (req,res) => {
+   console.log(req.body);
+   res.json("data stored");
+ });
+
+ app.get('/category', (req,res) =>{
+  res.sendFile(path.resolve('public/category.html'));
+ });
+
+ app.get('/reservation', (req,res) =>{
+  res.sendFile(path.resolve('public/traindt.html'));
+ });
 // app.get('/',function(req,res){
 //   res.sendFile(path.join(__dirname+'/public/index.html'));
 //   //__dirname : It will resolve to your project folder.

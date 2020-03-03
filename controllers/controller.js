@@ -6,6 +6,6 @@ exports.routeController = (req,res) =>{
 }
 
 exports.migrateRoute = (req,res) =>{
-    res.sendFile(path.resolve('public/route.html'));
+    res.sendFile(path.resolve('public/login.html'));
     //res.send("routing .........");
 }
