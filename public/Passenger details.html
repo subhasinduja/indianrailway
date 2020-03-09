@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Passenger Details</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+body{
+		color:black;
+		background: #3598dc;
+		font-family: 'Roboto', sans-serif;
+	}
+</head>
+</style>  
+</head>
+<body>
+
+<div class="container">
+  <h2><center>Passenger Details</h2></center>
+  <form>
+    <div class="form-group">
+      <label for="TA">First Name:</label>
+      <input type="text" class="form-control" id="fn">
+    </div>
+   
+    <div class="form-group">
+        <label for="ln">Last Name:</label>
+        <input type="text" class="form-control" id="Td">
+      </div>
+      <div class="form-group">
+        <label for="gen">gender:</label>
+        <input type="text" class="form-control" id="gen">
+      </div>
+      <div class="form-group">
+        <label for="nos">E-mail id</label>
+        <input type="email" class="form-control" id="ed">
+      </div>
+      <div class="dropdown">
+        <label for="toj">Additional Preferences</label>
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a>Same Compartment </a></li>
+          <li><a>only lower</a></li>
+          <li><a>Consecutive Berths</a></li>
+          <li><a>Proper sleeper set </a></li>
+      <input type="text" class="form-control" id="toj">    
+    </ul>
+      </div>
+       <div class="form-group">
+        <label for="nob">Age:</label>
+        <input type="number" class="form-control" id="ag">
+      </div>
+      <div class="form-group">
+        <label for="tel">Phone Number:</label>
+        <input type="tel" class="form-control" id="tel">
+      </div>
+      <div class="form-group">
+        <label for="nat">Nationality:</label>
+        <input type="text" class="form-control" id="nat">
+      </div>
+      <div class="text-center"> 
+            <button type="button" >SUBMIT</button> 
+            <button type="button" >CANCEL</button> 
+        </div> 
+</body>
+</html>
