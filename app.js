@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var request = require('request');
+var MongoClient = require('mongodb').MongoClient;
 const indexRoutes = require('./routes/index');
 
 // var indexRouter = require('./routes/index');
@@ -24,18 +25,118 @@ app.use(cookieParser());
  app.use('/', indexRoutes);
  app.use('/login', indexRoutes);
 
+ var url = "mongodb://localhost:27017/mydb";
  app.post('/signup', (req,res) => {
    console.log(req.body);
+   MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+    if (err) throw err;
+  var dbo = db.db("mydb");
+  //var myobj = { name: "Company Inc", address: "Highway 37" };
+  dbo.collection("userDetails").insertOne(req.body, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+  });
    res.json("data stored");
  });
 
- app.get('/category', (req,res) =>{
-  res.sendFile(path.resolve('public/category.html'));
+ app.post('/userLogin', (req,res) => {
+   console.log(req.body);
+   MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true },function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    var query = { email: req.body.userName };
+    dbo.collection("userDetails").find(query).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result);
+      db.close();
+      res.json(result);
+    });
+  }); 
+ })
+
+ app.get('/Category', (req,res) =>{
+  res.sendFile(path.resolve('public/Category .html'));
  });
 
  app.get('/reservation', (req,res) =>{
   res.sendFile(path.resolve('public/traindt.html'));
  });
+
+ app.get('/passengerdetails', (req,res) =>{
+  res.sendFile(path.resolve('public/Passenger details.html'));
+ })
+
+
+ var url = "mongodb://localhost:27017/";
+
+ app.post('/trainDetails',(req,res) =>{
+  var myobj = [
+    { name: 'Chennai Express', source: 'chennai', destination: 'tuticorin', seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200},
+    { name: 'Nagercoil Express', source: 'chennai', destination: 'nagercoil',seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200},
+    { name: 'Kaveri Express', source: 'chennai', destination: 'bangalore',seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200}
+    // { name: 'Hannah', seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200},
+    // { name: 'Michael', seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200},
+    // { name: 'Sandy', seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200}
+  ]
+  var url1 = "mongodb://localhost:27017/traindb";
+  MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+    //**************** */
+    //if (err) throw err;
+    //console.log("Database created!");
+    //********************** */
+
+    //******************* */
+    // var dbo = db.db("traindb");
+    // dbo.createCollection("trainDetails", function(err, res) {
+    //   if (err) throw err;
+    //   console.log("Collection created!");
+    //************************* */
+    
+    if (err) throw err;
+    var dbo = db.db("traindb");
+    dbo.collection("trainDetails").insertMany(myobj, function(err, res) {
+      if (err) throw err;
+      console.log("Number of documents inserted: " + res.insertedCount);
+      db.close();
+    });
+  }); 
+ });
+ app.post('/logDetails',(req,res) =>{
+  var url1 = "mongodb://localhost:27017/mydb";
+  MongoClient.connect(url1,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+    //******************** */
+    if (err) throw err;
+    console.log("Database created!");
+    //*********************** */
+
+    //************************ */
+    // var dbo = db.db("mydb");
+    // dbo.createCollection("userDetails", function(err, res) {
+    //   if (err) throw err;
+    //   console.log("Collection created!");
+    //****************************** */
+
+      db.close();
+   // });
+  }); 
+ });
+
+ app.post('/trainSearch',(req,res) =>{
+   console.log(req.body);
+   MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true },function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("traindb");
+    var query = { destination: req.body.destination };
+    dbo.collection("trainDetails").find(query).toArray(function(err, result) {
+      if (err) throw err;
+      console.log(result);
+      db.close();
+      res.json(result);
+    });
+  }); 
+ })
 // app.get('/',function(req,res){
 //   res.sendFile(path.join(__dirname+'/public/index.html'));
 //   //__dirname : It will resolve to your project folder.

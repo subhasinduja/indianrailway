@@ -125,8 +125,8 @@
 
 <script>
 function signUpClick(){
-	if($('#firstName') != null && $('#lastName') != null && $('#email') != null && 
-	$('#password') != null && $('#confirmPassword') != null && $('#check').prop('checked') == true){
+	if($('#firstName').val() != null && $('#lastName').val() != null && $('#email').val() != null && 
+	$('#password').val() != null && $('#confirmPassword').val() != null && $('#check').prop('checked') == true){
 		console.log($('#password').val());
 		console.log($('#confirmPassword').val());
 		if($('#password').val() == $('#confirmPassword').val()){
