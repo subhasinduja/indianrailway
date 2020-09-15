@@ -25,7 +25,7 @@ app.use(cookieParser());
  app.use('/', indexRoutes);
  app.use('/login', indexRoutes);
 
- var url = "mongodb://localhost:27017/mydb";
+ //var url = "mongodb://localhost:27017/mydb";
  app.post('/signup', (req,res) => {
    console.log(req.body);
    MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
@@ -64,6 +64,10 @@ app.use(cookieParser());
   res.sendFile(path.resolve('public/traindt.html'));
  });
 
+ app.get('/payment', (req,res) =>{
+  res.sendFile(path.resolve('public/payment.html'));
+ });
+
  app.get('/passengerdetails', (req,res) =>{
   res.sendFile(path.resolve('public/Passenger details.html'));
  })
@@ -79,6 +83,7 @@ app.use(cookieParser());
     // { name: 'Hannah', seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200},
     // { name: 'Michael', seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200},
     // { name: 'Sandy', seats: 600, lowerBerth: 200, middleBerth: 200, upperBerth: 200}
+    //{ name: 'Chennai Express', source: 'chennai', destination: 'tuticorin', ac_3_tier: {seats: 300, lowerBerth: 100, middleBerth: 100, upperBerth: 100}, sleeper:{seats: 400, lowerBerth: 200, middleBerth: 200, upperBerth: 200}
   ]
   var url1 = "mongodb://localhost:27017/traindb";
   MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
@@ -103,12 +108,32 @@ app.use(cookieParser());
     });
   }); 
  });
+
+ app.post('/getpnrdetails', async (req,res) => {
+   console.log(req.body.pnr);
+   var obj = {pnr: req.body.pnr, status: "confirmed"};
+   var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+await MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("pnrdb");
+  dbo.collection("pnrDetails").insertOne(obj, function(err, result) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+    res.json({success:'ok'});
+  });
+  
+});
+
+ });
  app.post('/logDetails',(req,res) =>{
-  var url1 = "mongodb://localhost:27017/mydb";
+  var url1 = "mongodb://localhost:27017/";
   MongoClient.connect(url1,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
     //******************** */
-    if (err) throw err;
-    console.log("Database created!");
+    // if (err) throw err;
+    // console.log("Database created!");
     //*********************** */
 
     //************************ */
@@ -117,9 +142,13 @@ app.use(cookieParser());
     //   if (err) throw err;
     //   console.log("Collection created!");
     //****************************** */
+    var dbo = db.db("pnrdb");
+    dbo.createCollection("pnrDetails", function(err, res) {
+      if (err) throw err;
+      console.log("Collection created!");
 
       db.close();
-   // });
+    });
   }); 
  });
 
@@ -128,7 +157,7 @@ app.use(cookieParser());
    MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true },function(err, db) {
     if (err) throw err;
     var dbo = db.db("traindb");
-    var query = { destination: req.body.destination };
+    var query = { source: req.body.source, destination: req.body.destination };
     dbo.collection("trainDetails").find(query).toArray(function(err, result) {
       if (err) throw err;
       console.log(result);
@@ -136,7 +165,7 @@ app.use(cookieParser());
       res.json(result);
     });
   }); 
- })
+ });
 // app.get('/',function(req,res){
 //   res.sendFile(path.join(__dirname+'/public/index.html'));
 //   //__dirname : It will resolve to your project folder.
