@@ -280,7 +280,7 @@ tr:nth-child(even) {
   <form>
     <div class="form-group">
       <label for="TA">Enter the PNR Number</label>
-      <input type="text" class="form-control" id="fn">
+      <input type="text" class="form-control" id="ticketcancel">
     </div>
    <div class="form-group">
         <label for="dte">Date Of Journey:</label>
@@ -288,7 +288,7 @@ tr:nth-child(even) {
       </div>
     <br></br>
     <div class="text-center">
-        <button type="button" class="btn btn-primary btn-lg">SUBMIT</button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="ticketCancel();">SUBMIT</button>
     </div>
     </form>
     </div>
@@ -298,12 +298,12 @@ tr:nth-child(even) {
       <form>
         <div class="form-group">
           <label for="TA">Enter the PNR Number</label>
-          <input type="text" class="form-control" id="fn">
+          <input type="text" class="form-control" id="pnrstatus">
         </div>
        
         <br></br>
         <div class="container">
-            <button type="button" class="btn btn-primary btn-lg">Check PNR Status</button>
+            <button type="button" class="btn btn-primary btn-lg" onclick="pnrStatus();">Check PNR Status</button>
         </div>
         </form>
         </div>
@@ -313,10 +313,10 @@ tr:nth-child(even) {
           <form>
             <div class="form-group">
               <label for="TA">Enter the Train Name/Number</label>
-              <input type="text" class="form-control" id="fn">
+              <input type="text" class="form-control" id="seatfortrain">
             </div>
             <div class="container">
-              <button type="button" class="btn btn-primary btn-lg">Check Seat Availability</button>
+              <button type="button" class="btn btn-primary btn-lg" onclick="seatAvailability();">Check Seat Availability</button>
               </div>
               </form>
               </div>
@@ -333,46 +333,60 @@ tr:nth-child(even) {
                   <form id="reservationForm">
                     <div class="row">
                       <div class="col-lg-3">
-                     <!-- <div class="dropdown">
-                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select category
-                      <span class="caret"></span></button>
-                      <ul class="dropdown-menu" id="category">
-                        <li style="color:black;"><a>AC 3-TIER</a></li>
-                        <li style="color:black;"><a>FIRST  CLASS</a></li>
-                        <li style="color:black;"><a>AC CHAIR CAR</a></li>
-                        <li style="color:black;"><a>SLEEPER</a></li>
-                      </ul>
-                    </div>  -->
+                     
                     <div class="form-group">
-                      <!-- <label for="company" style="color:black;font-size:15px">Select no of seats: </label> -->
-                      <!-- <div class="col-lg-3"> -->
+                      
+                        <select id="nameoftrain" class="form-control">
+                          <!-- <option value="none" selected disabled hidden> 
+                            Select Train 
+                        </option> 
+                          <option value="ac_3_tier">AC 3-TIER</option>
+                          <option value="first_class">FIRST CLASS</option>
+                          <option value="ac_2_tier">AC 2-TIER</option> 
+                          <option value="sleeper">SLEEPER</option> -->
+                        </select> 
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                    <div class="col-lg-3">
+                     
+                      <div class="form-group">
+                        
+                          <select id="timeoftrain" class="form-control">
+                            <!-- <option value="none" selected disabled hidden> 
+                              Select no of seats 
+                          </option> 
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option> -->
+                          </select> 
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-lg-3">
+                     
+                    <div class="form-group">
+                      
                         <select id="category" class="form-control">
                           <option value="none" selected disabled hidden> 
                             Select category 
                         </option> 
                           <option value="ac_3_tier">AC 3-TIER</option>
                           <option value="first_class">FIRST CLASS</option>
-                          <option value="ac_2_tier">AC 2-TIER</option>
+                          <!-- <option value="ac_2_tier">AC 2-TIER</option> -->
                           <option value="sleeper">SLEEPER</option>
                         </select> 
                       <!-- </div> -->
                     </div>
                   </div>
                     <div class="col-lg-3">
-                      <!-- <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select no of seats
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" id="seats">
-                          <li style="color:black;"><a>1</a></li>
-                          <li style="color:black;"><a>2</a></li>
-                          <li style="color:black;"><a>3</a></li>
-                          <li style="color:black;"><a>4</a></li>
-                          <li style="color:black;"><a>5</a></li>
-                        </ul>
-                      </div> -->
+                     
                       <div class="form-group">
-                        <!-- <label for="company" style="color:black;font-size:15px">Select no of seats: </label> -->
-                        <!-- <div class="col-lg-3"> -->
+                        
                           <select id="seats" class="form-control">
                             <option value="none" selected disabled hidden> 
                               Select no of seats 
@@ -583,7 +597,7 @@ tr:nth-child(even) {
                                 <!-- <h2 style="color:black;">Please fill the details for reservation:</h2> -->
                               </div>
                               <div class="modal-body">
-                                <p>Please fill the required details to search</p>
+                                <p id="notfilled"></p>
                                 </div>
                                 </div>
                                 </div>
@@ -612,6 +626,11 @@ tr:nth-child(even) {
                                   <div class="form-group">
                                   <label for="cardnumber" style="font-size:15px;">Passenger Details</label>
                                   <p id="pnrReciept" style="font-size:15px;"></p>
+                                  <p id="trainname" style="font-size:15px;"></p>
+                                  <!-- <div class="row"> -->
+                                    <p id="journeyfrom" style="font-size:15px;"></p>
+                                    <!-- <p id="journeyto" style="font-size:15px;"></p> 
+                                  </div> -->
                                     <!-- <input type="text" class="form-control" id="fn" required> -->
                                     <ol id="listDetails"></ol>
                                   </div>
@@ -642,6 +661,55 @@ tr:nth-child(even) {
                                   
                                   <!-- </div> -->
                                   </div>
+
+                                  <div id="myModal4" class="modal" style="display:none;">
+                                    <div class="modal-dialog modal-confirm">
+                                      <div class="modal-content">
+                                        <div class="modal-header justify-content-center">
+                                          <div class="icon-box">
+                                            <i class="material-icons" style="">cancel</i>
+                                          </div>
+                                          <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                                        </div>
+                                        <div class="modal-body text-center">
+                                          <h4>Ticket Cancelled</h4>	
+                                          <!-- <p>Your account has been created successfully.</p> -->
+                                          <button class="btn btn-success btn-block" style="margin-top:25px;" onclick="ticketCancelModal();">Ok</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div id="myModal5" class="modal" style="display:none;">
+                                    <div class="modal-dialog modal-confirm">
+                                      <div class="modal-content">
+                                        <div class="modal-header justify-content-center">
+                                          <div class="icon-box">
+                                            <i class="material-icons" id="iconyes" style="display:none;">&#xE876;</i>
+                                            <i class="material-icons" id="iconno" style="display:none;">cancel</i>
+                                          </div>
+                                          <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                                        </div>
+                                        <div class="modal-body text-center">
+                                          <h4 id="statuspnr"></h4>	
+                                          <!-- <p>Your account has been created successfully.</p> -->
+                                          <button class="btn btn-success btn-block" style="margin-top:25px;" onclick="ticketCancelModal();">Ok</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div id="myModal6" class="modal" style="display:none;">
+
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <span class="close" style="color:black;">&times;</span>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p id="avail"></p>
+                                        </div>
+                                        </div>
+                                        </div>
                                 
 
 </body>
@@ -650,14 +718,14 @@ tr:nth-child(even) {
 
 
 <script>
-  var seatRange, category;
-  $("#category, #seats").bind('change keyup', function(){
-    seatRange = '', category = '';
+  var seatRange, category, trainName, trainTime;
+  $("#nameoftrain, #timeoftrain, #category, #seats").bind('change keyup', function(){
+    seatRange = '', category = '', trainName = '', trainTime = '';
     if(allFilled()){
    console.log($("#category").val());
    console.log($("#seats").val());
    category = $("#category").val();
-   seatRange = $("#seats").val();
+   seatRange = $("#seats").val(), trainName= ($('#nameoftrain').val()).replace('_',' '), trainTime= ($('#timeoftrain').val()).replace('_',' ');
    for(var i=0; i< seatRange; i++){
     $('#reservationForm').append('<div class="row" id="value'+i+'">'
                       + '<div class="col-lg-3">'
@@ -678,11 +746,107 @@ tr:nth-child(even) {
     }
   });
 
+  function seatAvailability(){
+    if($('#seatfortrain').val() != ''){
+      var name={
+        name: $('#seatfortrain').val()
+      };
+      console.log(name);
+      $.ajax({
+    type: "POST",
+    url: '/seat',
+    data: JSON.stringify(name),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+      console.log(data);
+      $('#myModal6').css('display','block');
+      $('#avail').text('Available seats -' +data[0].seat);
+    }
+  })
+    }
+    else{
+      $('#notfilled').text('Please enter the Train name');
+    $('#myModal3').css('display','block');
+    }
+  }
+
+  function ticketCancel(){
+    if($('#ticketcancel').val() != '' && $('#dte').val() != ''){
+      var pnr ={
+      pnr: $('#ticketcancel').val()
+    };
+      $.ajax({
+    type: "POST",
+    url: '/cancelpnr',
+    data: JSON.stringify(pnr),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+      $('#myModal4').css('display','block');
+    }
+  })
+}
+else{
+  $('#notfilled').text('Please enter the PNR Number and Date');
+    $('#myModal3').css('display','block');
+}
+  }
+
+  function pnrStatus(){
+    if($('#pnrstatus').val() != ''){
+      var pnr ={
+      pnr: $('#pnrstatus').val()
+    };
+      $.ajax({
+    type: "POST",
+    url: '/logDetails',
+    data: JSON.stringify(pnr),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+      console.log(data);
+      $('#myModal5').css('display','block');
+      if(data[0].status == 'confirmed'){
+        $('#iconyes').css('display','block');
+        $('#iconno').css('display','none');
+      $('#statuspnr').text('Ticket Confirmed');
+      }
+      else{
+        $('#iconyes').css('display','none');
+        $('#iconno').css('display','block');
+        $('#statuspnr').text('Ticket Cancelled'); 
+      }
+    }
+  })
+}
+else{
+  $('#notfilled').text('Please enter the PNR Number');
+    $('#myModal3').css('display','block');
+}
+  }
+
+  function ticketCancelModal(){
+    $('#myModal4').css('display','none');
+    $('#myModal5').css('display','none');
+    location.href='/Category';
+  }
+
   var totalreservationDetails =[];
 function reservationSubmit(){
   totalreservationDetails =[];
+  var berth;
   for(var i=0; i<seatRange; i++){
-    totalreservationDetails.push([$('#name'+i).val(),$('#age'+i).val(),$('#gender'+i).val()]);
+    if($('#age'+i).val() < 40 && $('#age'+i).val() > 12 && category != "first_class"){
+      berth = 'upper'
+    }
+    else if($('#age'+i).val() > 40 && $('#age'+i).val() < 60 && category != "first_class"){
+      berth = 'middle'
+    }
+    else if($('#age'+i).val() > 60){
+      berth = 'lower'
+    }
+    totalreservationDetails.push([$('#name'+i).val(),$('#age'+i).val(),$('#gender'+i).val(), berth]);
   }
   console.log(totalreservationDetails);
   $('#myModal').css('display','none');
@@ -695,24 +859,29 @@ function reservationSubmit(){
   //location.href = "/passengerdetails";
   tableFill();
 }
-var total;
+var total, compartment, seatNo = 1;
 function tableFill(){
   total = '';
-var html = '<tr><th>Name</th><th>Age</th><th>Gender</th><th>Seat No/Compartment</th><th>Berth</th><th>Amount</th></tr>', seatNo = 0, amount;
-if(category == 'ac_3_tier' || 'first_class'){
+var html = '<tr><th>Name</th><th>Age</th><th>Gender</th><th>Seat No/Compartment</th><th>Berth</th><th>Amount</th></tr>', amount;
+if(category == 'ac_3_tier'){
   amount = 500;
+  compartment = 's1';
 }
 if(category == 'sleeper'){
   amount = 350;
+  compartment = 's2';
 }
-if(category == 'ac_2_tier'){
+if(category == 'first_class'){
   amount = 600;
+  compartment = 's3';
 }
 for(var i=0; i<totalreservationDetails.length; i++){
-  html += '<tr><td>'+totalreservationDetails[i][0]+'</td><td>'+totalreservationDetails[i][1]+'</td><td>'+totalreservationDetails[i][2]+'</td><td>'+(seatNo+1)+'</td><td>s1</td><td>'+amount+'</td><tr>';
+  //totalreservationDetails[i][4].push(compartment);
+  html += '<tr><td>'+totalreservationDetails[i][0]+'</td><td>'+totalreservationDetails[i][1]+'</td><td>'+totalreservationDetails[i][2]+'</td><td>'+seatNo+'/'+compartment+'</td><td>'+totalreservationDetails[i][3]+'</td><td>'+amount+'</td><tr>';
+    seatNo++;
 }
 total = totalreservationDetails.length * amount;
-html += '<tr><td colspan="5" style="text-align:right;">total:</td><td>'+total+'</td></tr>';
+html += '<tr><td colspan="5" style="text-align:right;">Total:</td><td>'+total+'</td></tr>';
 console.log(html);
 $('#passengertable').append(html);
 $('#categoryTab').css('background-color','white');
@@ -749,24 +918,45 @@ function cancelPayment(){
 }
 
 var timestamp;
-function successModal(){
+async function successModal(){
   timestamp = new Date().getTime();
   $('#myModal1').css('display','none');
   $('#paymentPage').css('display','none');
   $('#reciept').css('display','block');
   $('#pnrReciept').append('PNR Number: '+timestamp);
+  $('#trainname').append('Train Name:'+trainName+'&nbsp; Time:'+trainTime);
+  $('#journeyfrom').append('From: '+from+'&nbsp;&nbsp; To:'+to+'&nbsp;&nbsp; Journey Date:'+date );
+  //$('#journeyto').append('From: '+to);
   var list = '';
   for(var i=0; i<totalreservationDetails.length; i++){
-  list += '<li style="font-size:15px;">'+totalreservationDetails[i][0]+'('+totalreservationDetails[i][1]+')('+totalreservationDetails[i][2]+')&nbsp;&nbsp;Seat No - 1 &nbsp;&nbsp;compartment - s1</li>';
+  list += '<li style="font-size:15px;">'+totalreservationDetails[i][0]+'('+totalreservationDetails[i][1]+')('+totalreservationDetails[i][2]+')&nbsp;&nbsp;Seat No - '+seatNo+' &nbsp;&nbsp;compartment - '+compartment+'&nbsp;&nbsp;berth - '+totalreservationDetails[i][3]+'</li>';
 }
+  var mailText = '<p style="font-size:15px;">Your Ticket is Confirmed.</p><br><p style="font-size:15px;">PNR Number:'+timestamp+'</p><br><p style="font-size:15px;">Train Name: '+trainName+'&nbsp; Time:'+trainTime+'</p><br><p style="font-size:15px;">From: '+from+'&nbsp;&nbsp; To:'+to+'&nbsp;&nbsp; Journey Date:'+date+'</p><br>'+list;
+  await sendMail(mailText);
   $('#listDetails').append(list);
 }
 
-function okClick(){
+function sendMail(text){
+  $.ajax({
+    type: "POST",
+    url: '/mailservice',
+    data: JSON.stringify({'mailContent':text}),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+		console.log("data recieved--------"+data);
+// 		location.href = "/passengerdetails";
+location.href='/Category';
+	}
+});
+}
+
+async function okClick(){
   var pnr ={
-      pnr: timestamp
+      pnr: JSON.stringify(timestamp)
     };
-    $.ajax({
+    console.log(pnr);
+   await $.ajax({
     type: "POST",
     url: '/getpnrdetails',
     data: JSON.stringify(pnr),
@@ -792,6 +982,12 @@ function failureModal(){
         filled = false;
     }
     if ($('#seats').val() === null){
+        filled = false;
+    }
+    if ($('#nameoftrain').val() === null){
+        filled = false;
+    }
+    if ($('#timeoftrain').val() === null){
         filled = false;
     }
     return filled;
@@ -850,11 +1046,15 @@ $('#reservationTab').on('click',function(){
   $('#seatavailabilityTab').css('color', 'gray');
 })
 
+var from,to,date, trainData;
 function onOkClick(){
+  var raildt = '', timedt = '';
   if($('#source').val() != '' && $('#destination').val() != '' && $('#date').val() != ''){
+    from = $('#source').val(), to = $('#destination').val(), date = $('#date').val();
     var passengerDetails ={
       source: $('#source').val(),
-      destination: $('#destination').val()
+      destination: $('#destination').val(),
+      date: date
     };
     $.ajax({
     type: "POST",
@@ -863,15 +1063,23 @@ function onOkClick(){
     dataType: 'json',
     contentType: 'application/json',
     success: function (data) {
-		console.log("data recieved--------"+data);
+		console.log("data recieved--------"+JSON.stringify(data));
 // 		location.href = "/passengerdetails";
-
+trainData = data;
+raildt += '<option value="none" selected disabled hidden> Select Train </option>';
+timedt += '<option value="none" selected disabled hidden> Select Time </option>'
+for(var i=0; i<trainData.length; i++){
+  raildt += '<option value="'+(trainData[i].name).replace(" ","_")+'">'+trainData[i].name+'</option>';
+  timedt += '<option value="'+(trainData[i].time).replace(" ","_")+'">'+trainData[i].time+'</option>'
+}
+$('#nameoftrain').append(raildt), $('#timeoftrain').append(timedt);
+$('#myModal').css('display','block');
 	}
 });
 
-$('#myModal').css('display','block');
   }
   else{
+    $('#notfilled').text('Please fill the required details to search');
     $('#myModal3').css('display','block');
   }
 
@@ -879,5 +1087,6 @@ $('#myModal').css('display','block');
   $('.close').on('click', function() {
     $('#myModal').css('display','none');
     $('#myModal3').css('display','none');
+    $('#myModal6').css('display','none');
   });
 </script>
