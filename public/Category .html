@@ -498,8 +498,8 @@ tr:nth-child(even) {
                         <div class="row">
                         <div class="col-xs-12">
                         <div class="form-group">
-                        <label for="couponCode" style="font-size:15px;">COUPON CODE</label>
-                        <input type="text" class="form-control" name="couponCode" />
+                        <label for="couponCode" style="font-size:15px;">Email ID</label>
+                        <input type="text" class="form-control" name="couponCode" id="emailid" />
                         </div>
                         </div>                        
                         </div>
@@ -906,9 +906,10 @@ function paymentDecline(){
 function reservationCancel(){
 location.href='/Category';
 }
-
+ var emaiId;
 function submitPayment(){
   //location.href = "/pay";
+  emailId= $('#emailid').val();
   $('#myModal1').css('display','block');
 }
 
@@ -940,7 +941,7 @@ function sendMail(text){
   $.ajax({
     type: "POST",
     url: '/mailservice',
-    data: JSON.stringify({'mailContent':text}),
+    data: JSON.stringify({'mailContent':text,'email':emailId}),
     dataType: 'json',
     contentType: 'application/json',
     success: function (data) {

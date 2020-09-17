@@ -206,7 +206,7 @@ await MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true 
  app.post('/mailservice', async(req,res) => {
    var nodemailer = require('nodemailer');
   var smtpTransport = require('nodemailer-smtp-transport');
-  console.log(req.body.mailContent);
+  console.log(req.body.email);
    var transporter = nodemailer.createTransport(smtpTransport({
      service: 'gmail',
      //type: "SMTP",
@@ -222,7 +222,7 @@ await MongoClient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true 
 
    var mailOptions ={
      from: 'subusj11@gmail.com',
-     to: 'vickygokul5@gmail.com',
+     to: req.body.email,
      subject: 'Ticket Confirmation',
      //text: 'Your ticket has been confirmed'
      html: req.body.mailContent
