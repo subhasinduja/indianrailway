@@ -23,6 +23,44 @@ body{
   color: black;
   text-align: center;
 }
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -39,29 +77,43 @@ body{
 			</div>
 			<div class="card-body">
 				<form>
-					<div class="input-group form-group">
+					<!-- <div class="input-group form-group"> -->
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username" id="userName">
+						<input type="text" class="form-control" placeholder="username" id="userName" required>
 						
-					</div>
-					<div class="input-group form-group">
+					<!-- </div> -->
+					<!-- <div class="input-group form-group"> -->
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password" id="password">
+						<input type="password" class="form-control" placeholder="password" id="password" required>
+					<!-- </div> -->
+					<div class="row" style="color:black; margin-left:1px;">
+						<label>Select your language:</label>
 					</div>
+						<div class="row" style="color:black;margin-left:1px;">
+						<label class="radio-inline">
+							<input type="radio" name="optradio" value="english" checked>English
+						  </label>
+						  <label class="radio-inline">
+							<input type="radio" name="optradio" value="tamil">Tamil
+						  </label>
+						</div>
+						  
+						<div class="row"></div>    
+					
 					<!-- <div class="row align-items-center remember">
 						<input type="checkbox">Remember Me
 					</div> -->
-					<div class="">
-						<button type="submit" value="Login" class="btn float-right login_btn" onclick="loginSubmit(); return false;">Login</button>
+					<div class="" style="margin-top:20px;">
+						<button type="submit" value="Login" style="background-color:#3598dc;" class="btn float-right login_btn" onclick="loginSubmit(); return false;">Login</button>
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
-				<div class="d-flex justify-content-center">Don't have an account?<a href="#" >Sign Up</a>
+				<div class="d-flex justify-content-center" style="color:black;">Don't have an account?<a href="#" >Sign Up</a>
 				</div>
 				<div class="d-flex justify-content-center">
 					<a href="#">Forgot your password?</a>
@@ -70,13 +122,26 @@ body{
 		</div>
 	</div>
 </div>
+<div id="myModal3" class="modal" style="display:none;">
+
+	<!-- Modal content -->
+	<div class="modal-content">
+	  <div class="modal-header">
+		<span class="close" style="color:black;">&times;</span>
+		<!-- <h2 style="color:black;">Please fill the details for reservation:</h2> -->
+	  </div>
+	  <div class="modal-body">
+		<p id="notfilled" style="color:black;"></p>
+		</div>
+		</div>
+		</div>
 </body>
 </html>
 <script>
 function loginSubmit(){
 	console.log('comes here');
 	//location.href = "/loginSubmit";
-if($('#userName').val() != null && $('#password').val() != null){
+if($('#userName').val() != '' && $('#password').val() != ''){
 	var values;
 		values = {
 			"userName": $('#userName').val()
@@ -90,12 +155,28 @@ if($('#userName').val() != null && $('#password').val() != null){
     success: function (data) {
 		console.log("data recieved--------"+data);
 		if(data[0].password == $('#password').val()){
-
+			if($('input[name="optradio"]:checked').val() == 'english'){
 		location.href = "/Category";
+			}
+			else if($('input[name="optradio"]:checked').val() == 'tamil'){
+				location.href = "/tamil";
+			}
+		}
+		else{
+			$('#myModal3').css('display','block');
+	$('#notfilled').text('Username or Password is wrong')
 		}
 
 	}
 });
 }
+else{
+	$('#myModal3').css('display','block');
+	$('#notfilled').text('Please fill required details to login')
 }
+}
+
+$('.close').on('click', function() {
+    $('#myModal3').css('display','none');
+  });
 </script>

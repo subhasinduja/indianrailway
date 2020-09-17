@@ -60,6 +60,10 @@ app.use(cookieParser());
   res.sendFile(path.resolve('public/Category .html'));
  });
 
+ app.get('/tamil', (req,res) =>{
+  res.sendFile(path.resolve('public/category.html'));
+ });
+
  app.get('/reservation', (req,res) =>{
   res.sendFile(path.resolve('public/traindt.html'));
  });

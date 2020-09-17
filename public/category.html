@@ -1,32 +1,1092 @@
+<!DOCTYPE html>
 <html>
-<head>    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-button{
- background-color:lightpink;
- border: none;
- color:black;
- padding: 15px 32px;
- button {width: 250px;}
- button {height:250px ;}
- text-align: center;
- text-decoration: none;
- display: inline-block;
- font-size: 24px;
- margin: 5px 5px;
- cursor: pointer;
+div.scrollmenu {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+   font-size:30px;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
+
+
+
+#categoryTab{
+		color: black;
+		background: #3598dc;
+		font-family: 'Roboto', sans-serif;
+        font-size: 25px;
+	}
+
+/* #passengerDetailsTab
+  {
+		color:black;
+		background: #3598dc;
+		font-family: 'Roboto', sans-serif;
+	} */
+
+  .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.credit-card-box .panel-title {
+    display: inline;
+    font-weight: bold;
+}
+.credit-card-box .form-control.error {
+    border-color: red;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+}
+.credit-card-box label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box .payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box label {
+    display: block;
+}
+/* The old "center div vertically" hack */
+.credit-card-box .display-table {
+    display: table;
+}
+.credit-card-box .display-tr {
+    display: table-row;
+}
+.credit-card-box .display-td {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+/* Just looks nicer */
+.credit-card-box .panel-heading img {
+    min-width: 180px;
+}
+
+.modal-confirm {		
+	color: #636363;
+	width: 325px;
+	font-size: 14px;
+}
+.modal-confirm .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+}
+.modal-confirm .modal-header {
+	border-bottom: none;   
+	position: relative;
+}
+.modal-confirm h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -15px;
+}
+.modal-confirm .form-control, .modal-confirm .btn {
+	min-height: 40px;
+	border-radius: 3px; 
+}
+.modal-confirm .close {
+	position: absolute;
+	top: -5px;
+	right: -5px;
+}	
+.modal-confirm .modal-footer {
+	border: none;
+	text-align: center;
+	border-radius: 5px;
+	font-size: 13px;
+}	
+.modal-confirm .icon-box {
+	color: #fff;		
+	position: absolute;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: -70px;
+	width: 95px;
+	height: 95px;
+	border-radius: 50%;
+	z-index: 9;
+	background: #82ce34;
+	padding: 15px;
+	text-align: center;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+.modal-confirm .icon-box i {
+	font-size: 58px;
+	position: relative;
+	top: 3px;
+}
+.modal-confirm.modal-dialog {
+	margin-top: 80px;
+}
+.modal-confirm .btn {
+	color: #fff;
+	border-radius: 4px;
+	background: #82ce34;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	border: none;
+}
+.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+	background: #6fb32b;
+	outline: none;
+}
+.trigger-btn {
+	display: inline-block;
+	margin: 100px auto;
 }
 </style>
 </head>
-<body background="C:\Users\Sindhuja\empty\indianrailway\rail1.jpg">
-<br></br>
-<br><center><button>Reservation</button></center></br>
-<br></br>
-<br><center><button>Cancellation</button></center></br>
-<br></br>
-<br><center><button>PNR Status</button></center></br>
-<br></br>
-<br><center><button>Language Setting</button></center></br>
-<br></br>
-<br><center><button>Seat Availability</button></center></br>
+<body id="categoryTab" style="display:block;">
+
+<div class="scrollmenu" id="scrollid">
+  <!-- <a href="#home">Home</a> -->
+  <a id="reservationTab" style="color:gray;">இடஒதுக்கீடு</a>
+  <a id="cancellationTab" style="color:gray;" onclick="cancellationClick();">நீக்குதல்</a>
+  <!-- <a id="paymentTab" style="color:gray;">Language </a> -->
+  <a id="pnrTab" style="color:gray;" onclick="pnrClick();">பிஎன்ஆர்  நிலமை</a>
+  <a id="seatavailabilityTab" style="color:gray;" onclick="seatAvailClick();">இருக்கை கிடைப்புத்தன்மை</a>
+  <!-- <a href="#hlp" style="color:gray;">Help</a>   -->
+  </div>
+
+  <form id="reservation">
+    <div class="row" style="margin-left:10px;">
+    <div class="col-lg-3">
+    <div class="form-group">
+      <label for="TA">புறப்படும் இடம்:</label>
+      <input type="text" class="form-control" id="source" required>
+    </div>
+  </div>
+   
+  <div class="col-lg-3">
+    <div class="form-group">
+        <label for="TD">சேருமிடம்:</label>
+        <input type="text" class="form-control" id="destination" required>
+      </div>
+    </div>
+    </div>
+    <div class="row" style="margin-left:10px;">
+      <div class="col-lg-3">
+      <div class="form-group">
+        <label for="dte">நாள்:</label>
+        <input type="date" class="form-control" id="date" required>
+      </div>
+    </div>
+    </div>
+      <!-- <div class="form-group">
+        <label for="nos">Number of Seats</label>
+        <input type="number" class="form-control" id="nos">
+      </div>
+      <div class="dropdown">
+        <label for="toj">Type of Journey</label>
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a>AC 3-TIER</a></li>
+          <li><a>FIRST  CLASS</a></li>
+          <li><a>AC CHAIR CAR</a></li>
+        <li><a>SLEEPER</a></li>
+        <input type="text" class="form-control" id="toj">    
+    </ul>
+      </div> -->
+      <div class="col-lg-2">
+      <button class="btn btn-block" style="margin-left:10px;margin-top:30px;" onclick="onOkClick(); return false;">சரி</button>
+<!-- <div="left"><button>cancel</button></div> -->
+</div>
+</form>
+
+<div class="container" id="cancellation" style="display:none;">
+  <h2><center>டிக்கெட் ரத்து </h2></center>
+  <form>
+    <div class="form-group">
+      <label for="TA">பிஎன்ஆர் எண்ணை உள்ளிடவும்</label>
+      <input type="text" class="form-control" id="ticketcancel">
+    </div>
+   <div class="form-group">
+        <label for="dte">பயண தேதி:</label>
+        <input type="date" class="form-control" id="dte">
+      </div>
+    <br></br>
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn-lg" onclick="ticketCancel();">சமர்ப்பிக்கவும்</button>
+    </div>
+    </form>
+    </div>
+
+    <div class="container" id="pnr" style="display:none;">
+      <h2><center>பிஎன்ஆர் நிலை </h2></center>
+      <form>
+        <div class="form-group">
+          <label for="TA">பிஎன்ஆர் எண்ணை உள்ளிடவும்</label>
+          <input type="text" class="form-control" id="pnrstatus">
+        </div>
+       
+        <br></br>
+        <div class="container">
+            <button type="button" class="btn btn-primary btn-lg" onclick="pnrStatus();">பிஎன்ஆர் நிலையை சரிபார்க்கவும்</button>
+        </div>
+        </form>
+        </div>
+
+        <div class="container" id="seatAvail" style="display:none;">
+          <h2><center>இருக்கை கிடைப்புத்தன்மை </h2></center>
+          <form>
+            <div class="form-group">
+              <label for="TA">ரயில் பெயர் / எண்ணை உள்ளிடவும்</label>
+              <input type="text" class="form-control" id="seatfortrain">
+            </div>
+            <div class="container">
+              <button type="button" class="btn btn-primary btn-lg" onclick="seatAvailability();">சரி</button>
+              </div>
+              </form>
+              </div>
+
+              <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2 style="color:black;">முன்பதிவுக்கான விவரங்களை நிரப்பவும்:</h2>
+                  </div>
+                  <div class="modal-body">
+                  <form id="reservationForm">
+                    <div class="row">
+                      <div class="col-lg-3">
+                     
+                    <div class="form-group">
+                      
+                        <select id="nameoftrain" class="form-control">
+                          <!-- <option value="none" selected disabled hidden> 
+                            Select Train 
+                        </option> 
+                          <option value="ac_3_tier">AC 3-TIER</option>
+                          <option value="first_class">FIRST CLASS</option>
+                          <option value="ac_2_tier">AC 2-TIER</option> 
+                          <option value="sleeper">SLEEPER</option> -->
+                        </select> 
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                    <div class="col-lg-3">
+                     
+                      <div class="form-group">
+                        
+                          <select id="timeoftrain" class="form-control">
+                            <!-- <option value="none" selected disabled hidden> 
+                              Select no of seats 
+                          </option> 
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option> -->
+                          </select> 
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-lg-3">
+                     
+                    <div class="form-group">
+                      
+                        <select id="category" class="form-control">
+                          <option value="none" selected disabled hidden> 
+                            பயண வகை 
+                        </option> 
+                          <option value="ac_3_tier">குளிர் பெட்டி 3-அடுக்கு</option>
+                          <option value="first_class">முதல் வகுப்பு</option>
+                          <!-- <option value="ac_2_tier">AC 2-TIER</option> -->
+                          <option value="sleeper">படுக்கை</option>
+                        </select> 
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                    <div class="col-lg-3">
+                     
+                      <div class="form-group">
+                        
+                          <select id="seats" class="form-control">
+                            <option value="none" selected disabled hidden> 
+                                இருக்கை  எண்ணிக்கை 
+                          </option> 
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select> 
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+<br>
+                  
+                </form>
+                <br>
+                <div class="row">
+                  <div class="col-lg-9"></div>
+                <button type="button" class="btn btn-primary btn-lg" onclick="reservationCancel();">ரத்துசெய்</button>
+                <button type="button" class="btn btn-primary btn-lg" onclick="reservationSubmit();">சரி</button>
+              </div>
+                </div>
+                </div>
+              
+              </div>
+
+              <div id="passengerDetailsTab" style="display:none;">
+                <div class="container" style="">
+                  <h2 style="color:black;"><center>பயணிகள் விவரங்கள்</h2></center>
+                  <form id="passengerDetails">
+                    <table id="passengertable" style="width:100%;color:black"></table>
+                    </form>
+                        </div> 
+                        <div class="row" style="margin-top:30px;">
+                          <div class="col-lg-9"></div>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="paymentDecline();">ரத்துசெய்</button>
+                        <button type="button" class="btn btn-primary btn-lg" onclick="paymentInitiate();">கட்டணம்</button>
+                      </div>
+                      </div>
+
+                      <div class="container" id="paymentPage" style="display:none;">
+                        <!-- <div class="row"> -->
+                        <!-- You can make it whatever width you want. I'm making it full width
+                        on <= small devices and 4/12 page width on >= medium devices -->
+                        <div class="col-xs-12 col-md-4" style="margin-left:320px;margin-top:60px;">
+                        
+                        
+                        <!-- CREDIT CARD FORM STARTS HERE -->
+                        <div class="panel panel-default credit-card-box">
+                        <div class="panel-heading display-table" >
+                        <div class="row display-tr" >
+                        <h3 class="panel-title display-td" >கட்டண விவரங்கள்</h3>
+                        <div class="display-td" >                            
+                        <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                        </div>
+                        </div>                    
+                        </div>
+                        <div class="panel-body">
+                        <form role="form" id="payment-form">
+                        <div class="row">
+                        <div class="col-xs-12">
+                        <div class="form-group">
+                        <label for="cardnumber" style="font-size:15px;">அட்டை எண்</label>
+                        <!-- //<div class="input-group"> -->
+                          <input type="text" class="form-control" id="fn" required>
+                        <!-- <input 
+                        type="tel"
+                        class="form-control"
+                        name="cardNumber"
+                        placeholder="Valid Card Number"
+                        autocomplete="cc-number" 
+                        required
+                        /> -->
+                        <!-- <span class="input-group-addon"><i class="fa fa-credit-card"></i></span> -->
+                        </div>
+                        <!-- </div>                             -->
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-xs-7 col-md-7">
+                        <div class="form-group">
+                        <label for="cardExpiry" style="font-size:15px;"><span class="hidden-xs">காலாவதி</span><span class="visible-xs-inline">காலாவதி</span> தேதி</label>
+                        <input 
+                        type="tel" 
+                        class="form-control" 
+                        name="cardExpiry"
+                        placeholder="MM / YY"
+                        autocomplete="cc-exp"
+                        required 
+                        />
+                        </div>
+                        </div>
+                        <div class="col-xs-5 col-md-5 pull-right">
+                        <div class="form-group">
+                        <label for="cardCVC" style="font-size:15px;">சி.வி.வி எண்</label>
+                        <input 
+                        type="tel" 
+                        class="form-control"
+                        name="cardCVC"
+                        placeholder="CVV"
+                        autocomplete="cc-csc"
+                        required
+                        />
+                        </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-xs-12">
+                        <div class="form-group">
+                        <label for="couponCode" style="font-size:15px;">கூப்பன் குறியீடு</label>
+                        <input type="text" class="form-control" name="couponCode" />
+                        </div>
+                        </div>                        
+                        </div>
+                        <div class="row">
+                        <div class="col-xs-6">
+                          <button class="btn btn-success btn-block" onclick="submitPayment(); return false;">செலுத்துங்கள்</button>
+                        <!-- <a href="#myModal1" class="trigger-btn" data-toggle="modal">Pay</a> -->
+</div>
+                        <!-- </div> -->
+                        <div class="col-xs-6">
+                          <button class="btn btn-success btn-block" onclick="cancelPayment();return false;">ரத்துசெய்</button>
+                          </div>
+                        </div>
+                        <div class="row" style="display:none;">
+                        <div class="col-xs-12">
+                        <p class="payment-errors"></p>
+                        </div>
+                        </div>
+                        </form>
+                        </div>
+                        </div>            
+                        <!-- CREDIT CARD FORM ENDS HERE -->
+                        
+                        
+                        </div>            
+                        
+                        
+                        
+                        <!-- </div> -->
+                        </div>
+                        
+                          <!-- If you're using Stripe for payments -->
+                        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+                          
+                        <!-- </body> -->
+
+                        <!-- <div id="myModal1" class="modal modal-dialog modal-sm" style="display:none;">
+
+                          
+                          <div class="modal-content">
+                            <div class="modal-header justify-content-center">
+                              <div class="icon-box">
+                                <i class="material-icons">&#xE876;</i>
+                              </div>
+                            </div>
+                            <div class="modal-body text-center">
+                              <h4>Payment Successful</h4>
+                              <button type="button" class="btn btn-primary btn-lg" onclick="reservationSubmit();">Ok</button>
+                          
+                          </div>
+                          </div>   -->
+
+                          <div id="myModal1" class="modal" style="display:none;">
+                            <div class="modal-dialog modal-confirm">
+                              <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                  <div class="icon-box">
+                                    <i class="material-icons">&#xE876;</i>
+                                  </div>
+                                  <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                                </div>
+                                <div class="modal-body text-center">
+                                  <h4>கட்டணம் வெற்றிகரமாக</h4>	
+                                  <!-- <p>Your account has been created successfully.</p> -->
+                                  <button class="btn btn-success btn-block" style="margin-top:25px;" onclick="successModal();">சரி</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div> 
+                          
+                          <div id="myModal2" class="modal" style="display:none;">
+                            <div class="modal-dialog modal-confirm">
+                              <div class="modal-content">
+                                <div class="modal-header justify-content-center">
+                                  <div class="icon-box">
+                                    <i class="material-icons" style="">cancel</i>
+                                  </div>
+                                  <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                                </div>
+                                <div class="modal-body text-center">
+                                  <h4>கட்டணம் ரத்து செய்யப்பட்டது</h4>	
+                                  <!-- <p>Your account has been created successfully.</p> -->
+                                  <button class="btn btn-success btn-block" style="margin-top:25px;" onclick="failureModal();">சரி</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div id="myModal3" class="modal" style="display:none;">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <span class="close" style="color:black;">&times;</span>
+                                <!-- <h2 style="color:black;">Please fill the details for reservation:</h2> -->
+                              </div>
+                              <div class="modal-body">
+                                <p id="notfilled"></p>
+                                </div>
+                                </div>
+                                </div>
+
+                                <div class="container" id="reciept" style="display:none;">
+                                  <!-- <div class="row"> -->
+                                  <!-- You can make it whatever width you want. I'm making it full width
+                                  on <= small devices and 4/12 page width on >= medium devices -->
+                                  <div class="col-xs-12 col-md-4 col-lg-6" style="margin-left:320px;margin-top:60px;">
+                                  
+                                  
+                                  <!-- CREDIT CARD FORM STARTS HERE -->
+                                  <div class="panel panel-default credit-card-box">
+                                  <div class="panel-heading display-table" >
+                                  <div class="row display-tr" >
+                                  <h3 class="panel-title display-td" >டிக்கெட் விவரங்கள்</h3>
+                                  <!-- <div class="display-td" >                            
+                                  <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                                  </div> -->
+                                  </div>                    
+                                  </div>
+                                  <div class="panel-body">
+                                  <form role="form" id="payment-form">
+                                  <div class="row">
+                                  <div class="col-xs-12">
+                                  <div class="form-group">
+                                  <label for="cardnumber" style="font-size:15px;">பயணிகள் விவரங்கள்</label>
+                                  <p id="pnrReciept" style="font-size:15px;"></p>
+                                  <p id="trainname" style="font-size:15px;"></p>
+                                  <!-- <div class="row"> -->
+                                    <p id="journeyfrom" style="font-size:15px;"></p>
+                                    <!-- <p id="journeyto" style="font-size:15px;"></p> 
+                                  </div> -->
+                                    <!-- <input type="text" class="form-control" id="fn" required> -->
+                                    <ol id="listDetails"></ol>
+                                  </div>
+                                  </div>
+                                  </div>
+                                  
+                                  
+                                  <div class="row">
+                                  <div class="col-xs-4">
+                                    <button class="btn btn-success btn-block" onclick="okClick(); return false;">சரி</button>
+                                  <!-- <a href="#myModal1" class="trigger-btn" data-toggle="modal">Pay</a> -->
+          </div>
+                                  <!-- </div> -->
+                                  <!-- <div class="col-xs-6">
+                                    <button class="btn btn-success btn-block" onclick="cancelPayment();return false;">Cancel</button>
+                                    </div> -->
+                                  </div>
+                                 
+                                  </form>
+                                  </div>
+                                  </div>            
+                                  <!-- CREDIT CARD FORM ENDS HERE -->
+                                  
+                                  
+                                  </div>            
+                                  
+                                  
+                                  
+                                  <!-- </div> -->
+                                  </div>
+
+                                  <div id="myModal4" class="modal" style="display:none;">
+                                    <div class="modal-dialog modal-confirm">
+                                      <div class="modal-content">
+                                        <div class="modal-header justify-content-center">
+                                          <div class="icon-box">
+                                            <i class="material-icons" style="">cancel</i>
+                                          </div>
+                                          <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                                        </div>
+                                        <div class="modal-body text-center">
+                                          <h4>டிக்கெட் ரத்து செய்யப்பட்டது</h4>	
+                                          <!-- <p>Your account has been created successfully.</p> -->
+                                          <button class="btn btn-success btn-block" style="margin-top:25px;" onclick="ticketCancelModal();">சரி</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div id="myModal5" class="modal" style="display:none;">
+                                    <div class="modal-dialog modal-confirm">
+                                      <div class="modal-content">
+                                        <div class="modal-header justify-content-center">
+                                          <div class="icon-box">
+                                            <i class="material-icons" id="iconyes" style="display:none;">&#xE876;</i>
+                                            <i class="material-icons" id="iconno" style="display:none;">cancel</i>
+                                          </div>
+                                          <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                                        </div>
+                                        <div class="modal-body text-center">
+                                          <h4 id="statuspnr"></h4>	
+                                          <!-- <p>Your account has been created successfully.</p> -->
+                                          <button class="btn btn-success btn-block" style="margin-top:25px;" onclick="ticketCancelModal();">சரி</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div id="myModal6" class="modal" style="display:none;">
+
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <span class="close" style="color:black;">&times;</span>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p id="avail"></p>
+                                        </div>
+                                        </div>
+                                        </div>
+                                
+
 </body>
-</html>
+
+        </html>
+
+
+<script>
+  var seatRange, category, trainName, trainTime;
+  $("#nameoftrain, #timeoftrain, #category, #seats").bind('change keyup', function(){
+    seatRange = '', category = '', trainName = '', trainTime = '';
+    if(allFilled()){
+   console.log($("#category").val());
+   console.log($("#seats").val());
+   category = $("#category").val();
+   seatRange = $("#seats").val(), trainName= ($('#nameoftrain').val()).replace('_',' '), trainTime= ($('#timeoftrain').val()).replace('_',' ');
+   for(var i=0; i< seatRange; i++){
+    $('#reservationForm').append('<div class="row" id="value'+i+'">'
+                      + '<div class="col-lg-3">'
+                     + '<label for="TA" style="color:black;font-size:20px">பெயர்:</label>'
+              +'<input type="text" class="form-control" id="name'+i+'"></div>'              
+              +'<div class="col-lg-3"><label for="TA" style="color:black;font-size:20px">வயது:</label>'
+          +'<input type="text" class="form-control" id="age'+i+'"></div>'          
+          +'<div class="col-lg-3"><label for="TA"></label>'
+           +'<div class="form-group"><select id="gender'+i+'" class="form-control">'
+                  +'<option value="none" selected disabled hidden>பாலினத்தைத் தேர்ந்தெடுக்கவும்</option>' 
+                  +'<option value="male">ஆண்</option>'
+                  +'<option value="female">பெண்</option>'
+                +'</select>' 
+            +'</div>'
+      +'</div>'
+                  +'</div>');
+   }
+    }
+  });
+
+  function seatAvailability(){
+    if($('#seatfortrain').val() != ''){
+      var name={
+        name: $('#seatfortrain').val()
+      };
+      console.log(name);
+      $.ajax({
+    type: "POST",
+    url: '/seat',
+    data: JSON.stringify(name),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+      console.log(data);
+      $('#myModal6').css('display','block');
+      $('#avail').text('கிடைக்கும் இடங்கள் -' +data[0].seat);
+    }
+  })
+    }
+    else{
+      $('#notfilled').text('ரயில் பெயரை உள்ளிடவும்');
+    $('#myModal3').css('display','block');
+    }
+  }
+
+  function ticketCancel(){
+    if($('#ticketcancel').val() != '' && $('#dte').val() != ''){
+      var pnr ={
+      pnr: $('#ticketcancel').val()
+    };
+      $.ajax({
+    type: "POST",
+    url: '/cancelpnr',
+    data: JSON.stringify(pnr),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+      $('#myModal4').css('display','block');
+    }
+  })
+}
+else{
+  $('#notfilled').text('பிஎன்ஆர் எண் மற்றும் தேதியை உள்ளிடவும்');
+    $('#myModal3').css('display','block');
+}
+  }
+
+  function pnrStatus(){
+    if($('#pnrstatus').val() != ''){
+      var pnr ={
+      pnr: $('#pnrstatus').val()
+    };
+      $.ajax({
+    type: "POST",
+    url: '/logDetails',
+    data: JSON.stringify(pnr),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+      console.log(data);
+      $('#myModal5').css('display','block');
+      if(data[0].status == 'confirmed'){
+        $('#iconyes').css('display','block');
+        $('#iconno').css('display','none');
+      $('#statuspnr').text('டிக்கெட் உறுதிப்படுத்தப்பட்டது');
+      }
+      else{
+        $('#iconyes').css('display','none');
+        $('#iconno').css('display','block');
+        $('#statuspnr').text('டிக்கெட் ரத்து செய்யப்பட்டது'); 
+      }
+    }
+  })
+}
+else{
+  $('#notfilled').text('பிஎன்ஆர் எண்ணை உள்ளிடவும்');
+    $('#myModal3').css('display','block');
+}
+  }
+
+  function ticketCancelModal(){
+    $('#myModal4').css('display','none');
+    $('#myModal5').css('display','none');
+    location.href='/Category';
+  }
+
+  var totalreservationDetails =[];
+function reservationSubmit(){
+  totalreservationDetails =[];
+  var berth;
+  for(var i=0; i<seatRange; i++){
+    if($('#age'+i).val() < 40 && $('#age'+i).val() > 12 && category != "first_class"){
+      berth = 'upper'
+    }
+    else if($('#age'+i).val() > 40 && $('#age'+i).val() < 60 && category != "first_class"){
+      berth = 'middle'
+    }
+    else if($('#age'+i).val() > 60){
+      berth = 'lower'
+    }
+    totalreservationDetails.push([$('#name'+i).val(),$('#age'+i).val(),$('#gender'+i).val(), berth]);
+  }
+  console.log(totalreservationDetails);
+  $('#myModal').css('display','none');
+  $('#scrollid').css('display','none');
+  $('#cancellation').hide();
+  $('#reservation').hide();
+  $('#pnr').hide();
+  $('#seatAvail').hide();
+  $('#passengerDetailsTab').css('display','block');
+  //location.href = "/passengerdetails";
+  tableFill();
+}
+var total, compartment, seatNo = 1;
+function tableFill(){
+  total = '';
+var html = '<tr><th>பெயர்</th><th>வயது</th><th>பாலினம்</th><th>இருக்கை எண் / பெட்டி</th><th>பெர்த்</th><th>தொகை</th></tr>', amount;
+if(category == 'ac_3_tier'){
+  amount = 500;
+  compartment = 's1';
+}
+if(category == 'sleeper'){
+  amount = 350;
+  compartment = 's2';
+}
+if(category == 'first_class'){
+  amount = 600;
+  compartment = 's3';
+}
+for(var i=0; i<totalreservationDetails.length; i++){
+  //totalreservationDetails[i][4].push(compartment);
+  html += '<tr><td>'+totalreservationDetails[i][0]+'</td><td>'+totalreservationDetails[i][1]+'</td><td>'+totalreservationDetails[i][2]+'</td><td>'+seatNo+'/'+compartment+'</td><td>'+totalreservationDetails[i][3]+'</td><td>'+amount+'</td><tr>';
+    seatNo++;
+}
+total = totalreservationDetails.length * amount;
+html += '<tr><td colspan="5" style="text-align:right;">Total:</td><td>'+total+'</td></tr>';
+console.log(html);
+$('#passengertable').append(html);
+$('#categoryTab').css('background-color','white');
+}
+function paymentInitiate(){
+  //location.href = "/payment";
+  $('#myModal').css('display','none');
+  $('#scrollid').css('display','none');
+  $('#cancellation').hide();
+  $('#reservation').hide();
+  $('#pnr').hide();
+  $('#seatAvail').hide();
+  $('#passengerDetailsTab').css('display','none');
+  $('#paymentPage').css('display','block');
+  $('#categoryTab').css('background-color','white');
+}
+
+function paymentDecline(){
+  location.href='/tamil';
+}
+
+function reservationCancel(){
+location.href='/tamil';
+}
+
+function submitPayment(){
+  //location.href = "/pay";
+  $('#myModal1').css('display','block');
+}
+
+function cancelPayment(){
+  $('#myModal2').css('display','block');
+  $('.icon-box').css('background-color','red');
+}
+
+var timestamp;
+async function successModal(){
+  timestamp = new Date().getTime();
+  $('#myModal1').css('display','none');
+  $('#paymentPage').css('display','none');
+  $('#reciept').css('display','block');
+  $('#pnrReciept').append('பிஎன்ஆர் எண்: '+timestamp);
+  $('#trainname').append('ரயில் பெயர்:'+trainName+'&nbsp; நேரம்:'+trainTime);
+  $('#journeyfrom').append('புறப்படும் இடம்: '+from+'&nbsp;&nbsp; சேருமிடம்:'+to+'&nbsp;&nbsp; பயணம் தேதி:'+date );
+  //$('#journeyto').append('From: '+to);
+  var list = '';
+  for(var i=0; i<totalreservationDetails.length; i++){
+  list += '<li style="font-size:15px;">'+totalreservationDetails[i][0]+'('+totalreservationDetails[i][1]+')('+totalreservationDetails[i][2]+')&nbsp;&nbsp;இருக்கை எண் - '+seatNo+' &nbsp;&nbsp;பெட்டி - '+compartment+'&nbsp;&nbsp;பெர்த் - '+totalreservationDetails[i][3]+'</li>';
+}
+  var mailText = '<p style="font-size:15px;">Your Ticket is Confirmed.</p><br><p style="font-size:15px;">பிஎன்ஆர் எண்:'+timestamp+'</p><br><p style="font-size:15px;">ரயில் பெயர்: '+trainName+'&nbsp; நேரம்:'+trainTime+'</p><br><p style="font-size:15px;">புறப்படும் இடம்: '+from+'&nbsp;&nbsp; சேருமிடம்:'+to+'&nbsp;&nbsp; பயணம் தேதி:'+date+'</p><br>'+list;
+  await sendMail(mailText);
+  $('#listDetails').append(list);
+}
+
+function sendMail(text){
+  $.ajax({
+    type: "POST",
+    url: '/mailservice',
+    data: JSON.stringify({'mailContent':text}),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+		console.log("data recieved--------"+data);
+// 		location.href = "/passengerdetails";
+location.href='/tamil';
+	}
+});
+}
+
+async function okClick(){
+  var pnr ={
+      pnr: JSON.stringify(timestamp)
+    };
+    console.log(pnr);
+   await $.ajax({
+    type: "POST",
+    url: '/getpnrdetails',
+    data: JSON.stringify(pnr),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+		console.log("data recieved--------"+data);
+// 		location.href = "/passengerdetails";
+location.href='/tamil';
+	}
+});
+  
+}
+
+function failureModal(){
+  $('#myModal2').css('display','none');
+  location.href='/tamil';
+}
+
+  function allFilled() {
+    var filled = true;
+    if ($('#category').val() === null){
+        filled = false;
+    }
+    if ($('#seats').val() === null){
+        filled = false;
+    }
+    if ($('#nameoftrain').val() === null){
+        filled = false;
+    }
+    if ($('#timeoftrain').val() === null){
+        filled = false;
+    }
+    return filled;
+  }
+  if($('#reservation').css('display') == 'block'){
+    $('#reservationTab').css('color','white');
+  }
+  else{
+    $('#reservationTab').css('color','gray');
+  }
+// function reservationClick(){
+// $('#reservation').show();
+// }
+function cancellationClick(){
+  $('#cancellation').show();
+  $('#reservation').hide();
+  $('#pnr').hide();
+  $('#seatAvail').hide();
+  $('#reservationTab').css('color','gray');
+  $('#pnrTab').css('color','gray');
+  $('#seatavailabilityTab').css('color','gray');
+  $('#cancellationTab').css('color','white');
+}
+
+function pnrClick(){
+  $('#pnr').show();
+  $('#cancellation').hide();
+  $('#reservation').hide();
+  $('#seatAvail').hide();
+  $('#reservationTab').css('color','gray');
+  $('#cancellationTab').css('color','gray');
+  $('#seatavailabilityTab').css('color','gray');
+  $('#pnrTab').css('color', 'white');
+}
+
+function seatAvailClick(){
+  $('#seatAvail').show();
+  $('#cancellation').hide();
+  $('#reservation').hide();
+  $('#pnr').hide();
+  $('#reservationTab').css('color','gray');
+  $('#cancellationTab').css('color','gray');
+  $('#pnrTab').css('color','gray');
+  $('#seatavailabilityTab').css('color', 'white');
+
+}
+
+$('#reservationTab').on('click',function(){
+  $('#reservation').show();
+  $('#cancellation').hide();
+  $('#pnr').hide();
+  $('#seatAvail').hide();
+  $('#reservationTab').css('color','white');
+  $('#cancellationTab').css('color','gray');
+  $('#pnrTab').css('color','gray');
+  $('#seatavailabilityTab').css('color', 'gray');
+})
+
+var from,to,date, trainData;
+function onOkClick(){
+  var raildt = '', timedt = '';
+  if($('#source').val() != '' && $('#destination').val() != '' && $('#date').val() != ''){
+    from = $('#source').val(), to = $('#destination').val(), date = $('#date').val();
+    var passengerDetails ={
+      source: $('#source').val(),
+      destination: $('#destination').val(),
+      date: date
+    };
+    $.ajax({
+    type: "POST",
+    url: '/trainSearch',
+    data: JSON.stringify(passengerDetails),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (data) {
+		console.log("data recieved--------"+JSON.stringify(data));
+// 		location.href = "/passengerdetails";
+trainData = data;
+raildt += '<option value="none" selected disabled hidden> ரயிலைத் தேர்ந்தெடுக்கவும் </option>';
+timedt += '<option value="none" selected disabled hidden> நேரத்தைத் தேர்ந்தெடுக்கவும் </option>'
+for(var i=0; i<trainData.length; i++){
+  raildt += '<option value="'+(trainData[i].name).replace(" ","_")+'">'+trainData[i].name+'</option>';
+  timedt += '<option value="'+(trainData[i].time).replace(" ","_")+'">'+trainData[i].time+'</option>'
+}
+$('#nameoftrain').append(raildt), $('#timeoftrain').append(timedt);
+$('#myModal').css('display','block');
+	}
+});
+
+  }
+  else{
+    $('#notfilled').text('தேட தேவையான விவரங்களை நிரப்பவும்');
+    $('#myModal3').css('display','block');
+  }
+
+  }
+  $('.close').on('click', function() {
+    $('#myModal').css('display','none');
+    $('#myModal3').css('display','none');
+    $('#myModal6').css('display','none');
+  });
+</script>

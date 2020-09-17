@@ -88,6 +88,44 @@
 		padding-bottom: 15px;
 		text-align: center;
     }
+
+	.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -110,8 +148,20 @@
         </div>
 		<div class="form-group">
             <input type="password" class="form-control" id="confirmPassword" name="confirm_password" placeholder="Confirm Password" required="required">
-        </div>        
-        <div class="form-group">
+		</div>  
+		<div class="row" style="margin-left:3px;">
+			<label>Select your language:</label>
+			<div class="row">
+			<label class="radio-inline">
+				<input type="radio" name="optradio" value="english" checked>English
+			  </label>
+			  <label class="radio-inline">
+				<input type="radio" name="optradio" value="tamil">Tamil
+			  </label>
+			</div>
+			</div>  
+			<div class="row"></div>    
+        <div class="form-group" style="margin-top:12px;">
 			<label class="checkbox-inline"><input type="checkbox" id="check" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
 		</div>
 		<div class="">
@@ -120,13 +170,27 @@
     </form>
 	<div class="hint-text">Already have an account? <a href="#" onClick="location.href='/login'">Login here</a></div>
 </div>
+
+<div id="myModal3" class="modal" style="display:none;">
+
+	<!-- Modal content -->
+	<div class="modal-content">
+	  <div class="modal-header">
+		<span class="close" style="color:black;">&times;</span>
+		<!-- <h2 style="color:black;">Please fill the details for reservation:</h2> -->
+	  </div>
+	  <div class="modal-body">
+		<p id="notfilled" style="color:black;"></p>
+		</div>
+		</div>
+		</div>
 </body>
 </html>  
 
 <script>
 function signUpClick(){
-	if($('#firstName').val() != null && $('#lastName').val() != null && $('#email').val() != null && 
-	$('#password').val() != null && $('#confirmPassword').val() != null && $('#check').prop('checked') == true){
+	if($('#firstName').val() != '' && $('#lastName').val() != '' && $('#email').val() != '' && 
+	$('#password').val() != '' && $('#confirmPassword').val() != '' && $('#check').prop('checked') == true){
 		console.log($('#password').val());
 		console.log($('#confirmPassword').val());
 		if($('#password').val() == $('#confirmPassword').val()){
@@ -147,16 +211,30 @@ function signUpClick(){
     contentType: 'application/json',
     success: function (data) {
 		console.log("data recieved--------"+data);
+		if($('input[name="optradio"]:checked').val() == 'english'){
 		location.href = "/category";
+		}
+		else if($('input[name="optradio"]:checked').val() == 'tamil'){
+			location.href = "/tamil";	
+		}
 
 	}
 });
 		//console.log($('#firstName').val(), $('#lastName').val(), $('#email').val(), $('#password').val(), $('#confirmPassword').val());
 		}
 		else{
+			$('#myModal3').css('display','block');
+	$('#notfilled').text('password and confirm password field not equal')
 			console.log('password and confirm password field not equal');
 		}
 	}
+	else{
+		$('#myModal3').css('display','block');
+	$('#notfilled').text('Please fill required details to login')
+	}
 
 }
+$('.close').on('click', function() {
+    $('#myModal3').css('display','none');
+  });
 </script>
